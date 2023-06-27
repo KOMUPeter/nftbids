@@ -44,11 +44,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Adresse $lives = null;
 
     #[ORM\ManyToMany(targetEntity: Nft::class)]
-    private Collection $transaction;
+    private Collection $transactions;
+
+    #[ORM\Column(length: 60)]
+    private ?string $lastName = null;
 
     public function __construct()
     {
-        $this->transaction = new ArrayCollection();
+        $this->transactions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -174,13 +177,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getTransaction(): Collection
     {
-        return $this->transaction;
+        return $this->transactions;
     }
 
     public function addTransaction(Nft $transaction): static
     {
-        if (!$this->transaction->contains($transaction)) {
-            $this->transaction->add($transaction);
+        if (!$this->transactions->contains($transaction)) {
+            $this->transactions->add($transaction);
         }
 
         return $this;
@@ -188,7 +191,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeTransaction(Nft $transaction): static
     {
-        $this->transaction->removeElement($transaction);
+        $this->transactions->removeElement($transaction);
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): static
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }
