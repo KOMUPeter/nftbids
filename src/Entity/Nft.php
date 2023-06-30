@@ -43,8 +43,9 @@ class Nft
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->nftCreationDate = new \DateTimeImmutable();
     }
-
+ 
     public function getId(): ?int
     {
         return $this->id;

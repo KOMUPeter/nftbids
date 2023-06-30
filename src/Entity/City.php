@@ -19,7 +19,7 @@ class City
     private ?string $cityName = null;
 
     #[ORM\Column]
-    private ?int $postalCode = null;
+    private ?string $postalCode = null;
 
     #[ORM\OneToMany(mappedBy: 'city', targetEntity: Adresse::class)]
     private Collection $located;
@@ -46,12 +46,12 @@ class City
         return $this;
     }
 
-    public function getPostalCode(): ?int
+    public function getPostalCode(): ?string
     {
         return $this->postalCode;
     }
 
-    public function setPostalCode(int $postalCode): static
+    public function setPostalCode(string $postalCode): static
     {
         $this->postalCode = $postalCode;
 
@@ -86,5 +86,10 @@ class City
         }
 
         return $this;
+    }
+    // // convert to string
+    public function __toString()
+    {
+        return (string) $this->getCityName();
     }
 }

@@ -28,7 +28,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    private ?string $password = null;
+    protected ?string $password = null;
+    protected ?string $plainPassword =null;
 
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
@@ -52,6 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
+        $this->lives = new Adresse();
     }
 
     public function getId(): ?int
@@ -121,7 +123,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     public function getFirstName(): ?string
@@ -207,4 +209,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+	public function getPlainPassword(): ?string {
+		return $this->plainPassword;
+	}
+
+	
+	public function setPlainPassword(?string $plainPassword): self {
+		$this->plainPassword = $plainPassword;
+		return $this;
+	}
 }
