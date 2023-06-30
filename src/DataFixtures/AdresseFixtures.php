@@ -38,7 +38,7 @@ class AdresseFixtures extends Fixture implements DependentFixtureInterface
             $adresse = new Adresse();
             $adresse->setLine1($userAdresse['line1']);
 
-            $adresse->setCity($cities[$key]); // relationship property
+            $adresse->setCity($cities[$key]); // relationship property add city id in address 
 
             $manager->persist($adresse);
         }

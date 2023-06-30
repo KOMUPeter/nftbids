@@ -42,7 +42,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 'lastName' => 'Doe',
                 'gender' => 'Female',
                 'dateOfBirth' => '1990/02/17',
-                'roles' => ['ROLE_USER']
+                'roles' => ['ROLE_SELLER']
             ],
             [
                 'password' => '3010',
@@ -51,7 +51,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 'lastName' => 'Doe',
                 'gender' => 'male',
                 'dateOfBirth' => '1988/03/01',
-                'roles' => ['ROLE_USER', 'ROLE_BUYER']
+                'roles' => ['ROLE_SELLER', 'ROLE_BUYER']
             ],
         ];
 

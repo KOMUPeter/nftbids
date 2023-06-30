@@ -68,4 +68,8 @@ class Adresse
 
         return $this;
     }
+    public function __toString()
+    {
+        return (string) $this->getLine1().' '.$this->getCity()->getCityName();
+    }
 }
