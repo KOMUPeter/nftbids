@@ -53,7 +53,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Nfts', 'fas fa-list', Nft::class);
         yield MenuItem::linkToCrud('Cities', 'fas fa-list', City::class);
         yield MenuItem::linkToCrud('Categories', 'fas fa-list', Category::class);
-        yield MenuItem::linkToCrud('Addresses', 'fas fa-list', Adresse::class);
-        yield MenuItem::linkToUrl('Back to site', 'fas fa-list', $this->generateUrl('homePage'));
+        // yield MenuItem::linkToCrud('Addresses', 'fas fa-list', Adresse::class);
+        yield MenuItem::linkToUrl('Back to Home Page', 'fas fa-list', $this->generateUrl('homePage'));
     }
 }
