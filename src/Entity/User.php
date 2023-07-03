@@ -7,10 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -29,12 +32,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     protected ?string $password = null;
-    protected ?string $plainPassword =null;
+    protected ?string $plainPassword = null;
 
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
 
+    // to chose between male and female
     #[ORM\Column(length: 50)]
+    /**
+     * @Assert\Choice(choices={"male", "female"})
+     */
     private ?string $gender = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -89,7 +96,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+        // guaranted every user has at least ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -210,13 +217,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-	public function getPlainPassword(): ?string {
-		return $this->plainPassword;
-	}
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
 
-	
-	public function setPlainPassword(?string $plainPassword): self {
-		$this->plainPassword = $plainPassword;
-		return $this;
-	}
+
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
+    }
+
+    //   public function __toString(): string
+    //   {
+    //       return $this->gender; // Return a string representation of the User entity
+    //   }
 }

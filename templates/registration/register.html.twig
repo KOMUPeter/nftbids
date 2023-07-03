@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription
+{% endblock %}
+
+{% block body %}
+	<h1 class='text-center m-5'>My account</h1>
+
+	{{ form_errors(registrationForm) }}
+
+	{{ form_start(registrationForm) }}
+	{{ form_row(registrationForm.firstName) }}
+	{{ form_row(registrationForm.lastName) }}
+	{{ form_row(registrationForm.gender) }}
+	{{ form_row(registrationForm.email) }}
+	{{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+	{{ form_row(registrationForm.roles) }}
+	{{ form_row(registrationForm.dateOfBirth) }}
+	{{ form_row(registrationForm.lives) }}
+
+	{{ form_row(registrationForm.agreeTerms) }}
+
+	<div>
+		<button type="submit" class="btn btn-primary p-2 text-bold">Create my account</button>
+	</div>
+	{{ form_end(registrationForm) }}
+{% endblock %}
+

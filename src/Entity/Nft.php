@@ -40,10 +40,14 @@ class Nft
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'have')]
     private Collection $categories;
 
+    #[ORM\OneToMany(mappedBy: 'nftImage', targetEntity: Image::class)]
+    private Collection $nftImage;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->nftCreationDate = new \DateTimeImmutable();
+        $this->nftImage = new ArrayCollection();
     }
  
     public function getId(): ?int
@@ -161,4 +165,37 @@ class Nft
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getNftImage(): Collection
+    {
+        return $this->nftImage;
+    }
+
+    public function addNftImage(Image $nftImage): static
+    {
+        if (!$this->nftImage->contains($nftImage)) {
+            $this->nftImage->add($nftImage);
+            $nftImage->setNftImage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNftImage(Image $nftImage): static
+    {
+        if ($this->nftImage->removeElement($nftImage)) {
+            // set the owning side to null (unless already changed)
+            if ($nftImage->getNftImage() === $this) {
+                $nftImage->setNftImage(null);
+            }
+        }
+        return $this;
+    }
+    // public function __toString(): string
+    // {
+    //     return $this->getCategories(); // Replace 'name' with the property representing the string representation of the Category entity
+    // }
 }

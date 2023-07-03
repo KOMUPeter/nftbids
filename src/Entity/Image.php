@@ -19,9 +19,9 @@ class Image
     #[ORM\Column(length: 255)]
     private ?string $imageLink = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'nftImage')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Nft $contain = null;
+    private ?Nft $nftImage = null;
 
     public function getId(): ?int
     {
@@ -52,14 +52,14 @@ class Image
         return $this;
     }
 
-    public function getContain(): ?Nft
+    public function getNftImage(): ?Nft
     {
-        return $this->contain;
+        return $this->nftImage;
     }
 
-    public function setContain(?Nft $contain): static
+    public function setNftImage(?Nft $nftImage): static
     {
-        $this->contain = $contain;
+        $this->nftImage = $nftImage;
 
         return $this;
     }

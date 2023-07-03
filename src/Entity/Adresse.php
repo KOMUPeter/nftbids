@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AdresseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AdresseRepository::class)]
@@ -22,6 +23,11 @@ class Adresse
     #[ORM\ManyToOne(inversedBy: 'located')]
     #[ORM\JoinColumn(nullable: false)]
     private ?City $city = null;
+
+    // public function __construct()
+    // {
+    //     $this->lives = new ArrayCollection();
+    // }
 
     public function getId(): ?int
     {
