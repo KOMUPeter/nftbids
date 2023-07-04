@@ -37,7 +37,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('lastName'),
             TextField::new('gender'),
             DateField::new('dateOfBirth'),
-            AdresseField::new('line1'), // created a formType and admin adresse field to enable handle the field AdresseField in association entity
+            AdresseField::new('lives'), // created a formType and admin adresse field to enable handle the field AdresseField in association entity
         ];
     }
 }

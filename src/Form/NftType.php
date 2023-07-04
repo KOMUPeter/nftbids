@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Nft;
+use App\Form\ImageType;
+use App\Form\NftFlowType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -21,7 +23,7 @@ class NftType extends AbstractType
             ->add('isAvailable')
             ->add('quantity')
             ->add('actualPrice')
-            ->add('nftFlow')
+            ->add('nftFlow', NftFlowType::class)
             ->add('categories', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
@@ -29,7 +31,13 @@ class NftType extends AbstractType
                 'multiple' => true,
                 'required' => true,
             ])
-            ->add('nftImage')
+            ->add('nftImage', CollectionType::class, [
+                'entry_type' => ImageType::class,
+                'allow_add' => true,
+                'prototype_name' => '__nftImage__',
+                'allow_delete' => true,
+                'by_reference' => false,
+            ])
         ;
     }
 
