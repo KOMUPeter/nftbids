@@ -23,7 +23,7 @@ class NftController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($nft);
             $em->flush();
-
+            
         }    
         return $this->render('nft/index.html.twig', [
             'nftForm' => $form->createView(),

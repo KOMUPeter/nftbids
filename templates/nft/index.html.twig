@@ -1,21 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create an Nft {% endblock %}
+{% block title %}Create an Nft
+{% endblock %}
 
 {% block body %}
-<h1>Create an Nft</h1>
-{{ form_errors(nftForm) }}
-    {{ form_row(nftForm.nftName) }}
-    {{ form_row(nftForm.nftCreationDate) }}
-    {{ form_row(nftForm.initialPrice) }}
-    {{ form_row(nftForm.isAvailable) }}
+	<h1 class="text-center">Create an Nft</h1>
+	{{ form_start(nftForm) }}
+	{{ form_errors(nftForm) }}
+	{{ form_row(nftForm.nftName) }}
+	{{ form_row(nftForm.nftCreationDate) }}
+	{{ form_row(nftForm.initialPrice) }}
+	{{ form_row(nftForm.isAvailable) }}
 	{{ form_row(nftForm.quantity) }}
 	{{ form_row(nftForm.actualPrice) }}
 	{{ form_row(nftForm.nftFlow) }}
 	{{ form_row(nftForm.categories) }}
 	{{ form_row(nftForm.nftImage) }}
 	<div>
-		<button type="submit" class="btn btn-primary p-2 text-bold">Create MY Nft</button>
+
+		<button type="submit" class="btn btn-primary p-2 text-bold">Create</button>
 	</div>
-{{ form_end(nftForm) }}
+	{{ form_end(nftForm) }}
+{% endblock %}
+{% block javascripts %}
+	<script src="{{ asset('js/collection.js') }}"></script>
 {% endblock %}

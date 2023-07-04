@@ -33,14 +33,14 @@ class Nft
     #[ORM\Column]
     private ?int $actualPrice = null;
 
-    #[ORM\ManyToOne(inversedBy: 'possess')]
+    #[ORM\ManyToOne(inversedBy: 'possess', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?NftFlow $nftFlow = null;
 
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'have')]
     private Collection $categories;
 
-    #[ORM\OneToMany(mappedBy: 'nftImage', targetEntity: Image::class)]
+    #[ORM\OneToMany(mappedBy: 'nftImage', targetEntity: Image::class, cascade: ['persist'])]
     private Collection $nftImage;
 
     public function __construct()
@@ -49,7 +49,7 @@ class Nft
         $this->nftCreationDate = new \DateTimeImmutable();
         $this->nftImage = new ArrayCollection();
     }
- 
+
     public function getId(): ?int
     {
         return $this->id;
