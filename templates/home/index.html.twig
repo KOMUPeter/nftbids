@@ -3,5 +3,18 @@
 {% block title %}Nft Bids{% endblock %}
 
 {% block body %}
-hello
+<H1>Discover Nft Collections and Own an Nft</H1>
+{% for nft in nfts %}
+    <ul>
+    <li>{{nft.nftName}}</li>
+    <li>{{nft.initialPrice}}</li>
+    {# <li>{{nft.isAvailabe}}</li> #}
+    <li>{{nft.quantity}}</li>
+    <li>{{nft.actualPrice}}</li>
+    {# <li>{{nft.nftFlow}}</li> #}
+    {# <li>{{nft.categories}}</li> #}
+    {# <li>{{nft.nftImage}}</li> #}
+    </ul>
+{% endfor %}
+<button>Get Started</button>
 {% endblock body %}
