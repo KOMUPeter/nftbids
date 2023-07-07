@@ -39,7 +39,18 @@ class NftRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
+    public function nftList(): array
+    {
+        return $this->createQueryBuilder('n')
+            ->select(['n'])
+            ->orderBy('n.nftCreationDate', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    //    /**
 //     * @return Nft[] Returns an array of Nft objects
 //     */
 //    public function findByExampleField($value): array
@@ -54,7 +65,7 @@ class NftRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Nft
+    //    public function findOneBySomeField($value): ?Nft
 //    {
 //        return $this->createQueryBuilder('n')
 //            ->andWhere('n.exampleField = :val')
