@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My account
+{% endblock %}
+
+{% block body %}
+	{# show my connection #}
+	<h1 class="text-center">My account</h1>
+	<section>
+		<div class="d-flex">
+			<aside class="col-3">
+				<div>
+					<h2 class='text-center'>Modify My information</h2>
+					{{ form_start(form) }}
+					{{ form_row(form.email)}}
+					{{ form_row(form.password)}}
+					<div class='text-center'>
+						<button class="btn text-primary border font-bold" type='submit'>Modify</button>
+					</div>
+					{{ form_end(form) }}
+				</div>
+			</aside>
+			{# show my ntfs list #}
+			<article class="col-9">
+				<ul>
+					<li>
+						<p>Nft Owner:
+							{{ user.firstName }}
+						</p>
+
+					</li>
+				</ul>
+			</article>
+		</div>
+	</section>
+{% endblock %}
+

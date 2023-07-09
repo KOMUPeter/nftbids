@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Nft;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

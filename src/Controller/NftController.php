@@ -24,6 +24,7 @@ class NftController extends AbstractController
             $em->persist($nft);
             $em->flush();
             
+            return $this->redirectToRoute('app_user'); 
         }    
         return $this->render('nft/index.html.twig', [
             'nftForm' => $form->createView(),

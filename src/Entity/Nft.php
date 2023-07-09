@@ -194,8 +194,14 @@ class Nft
         }
         return $this;
     }
-    // public function __toString(): string
-    // {
-    //     return $this->getCategories(); // Replace 'name' with the property representing the string representation of the Category entity
-    // }
+    public function __toString(): string
+    {
+        $categoryNames = [];
+    
+        foreach ($this->getCategories() as $category) {
+            $categoryNames[] = $category->getName();
+        }
+    
+        return implode(', ', $categoryNames);
+    }
 }
