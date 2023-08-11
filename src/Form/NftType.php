@@ -17,6 +17,7 @@ class NftType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            // ->add('nftOwner')
             ->add('nftName')
             ->add('nftCreationDate')
             ->add('initialPrice')

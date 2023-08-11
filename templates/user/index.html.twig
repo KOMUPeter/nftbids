@@ -27,7 +27,19 @@
 						<p>Nft Owner:
 							{{ user.firstName }}
 						</p>
+						{# {% block content %}
+							<h1>Welcome,
+								{{ user.username }}!</h1>
 
+							<h2>Your NFTs:</h2>
+							{% for nft in nfts %}
+								<div>
+									<h3>{{ nft.title }}</h3>
+									<p>{{ nft.description }}</p>
+									<!-- Display other NFT properties as needed -->
+								</div>
+							{% endfor %}
+						{% endblock %} #}
 					</li>
 				</ul>
 			</article>

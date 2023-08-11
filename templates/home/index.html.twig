@@ -3,7 +3,6 @@
 {% block title %}Nft Bids{% endblock %}
 
 {% block body %}
-<<<<<<< HEAD
 <h1>Home Page</h1>
 
 {% for nft in nfts %}
@@ -42,20 +41,4 @@
     {% endif %}
 {% endfor %}
 <button>Get Started</button> 
-=======
-<H1>Discover Nft Collections and Own an Nft</H1>
-{% for nft in nfts %}
-    <ul>
-    <li>{{nft.nftName}}</li>
-    <li>{{nft.initialPrice}}</li>
-    {# <li>{{nft.isAvailabe}}</li> #}
-    <li>{{nft.quantity}}</li>
-    <li>{{nft.actualPrice}}</li>
-    {# <li>{{nft.nftFlow}}</li> #}
-    {# <li>{{nft.categories}}</li> #}
-    {# <li>{{nft.nftImage}}</li> #}
-    </ul>
-{% endfor %}
-<button>Get Started</button>
->>>>>>> 44fb34453f1112ec273fdc3c6685153d97a70059
 {% endblock body %}

@@ -17,15 +17,21 @@ class NftController extends AbstractController
     {
         $nft = new Nft();
         $form = $this->createForm(
-            NftType::class, $nft);
-            $form->handleRequest($request);
-            
+            NftType::class,
+            $nft
+        );
+        $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $nftOwner = $form->get('nftOwner')->getData();
+            $nft->setNftName($nftOwner);
+
             $em->persist($nft);
             $em->flush();
-            
-            return $this->redirectToRoute('app_user'); 
-        }    
+
+            return $this->redirectToRoute('app_user');
+        }
         return $this->render('nft/index.html.twig', [
             'nftForm' => $form->createView(),
         ]);
