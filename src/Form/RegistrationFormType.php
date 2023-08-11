@@ -72,7 +72,7 @@ class RegistrationFormType extends AbstractType
             ->add('lives', AdresseType::class)
         ;
     }
-   
+    
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

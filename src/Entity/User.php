@@ -2,7 +2,8 @@
 
 namespace App\Entity;
 
-use App\Entity\Nft;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,6 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ApiResource()]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -52,16 +54,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Adresse $lives = null;
 
-    #[ORM\ManyToMany(targetEntity: Nft::class)]
-    private Collection $transactions;
-
     #[ORM\Column(length: 60)]
     private ?string $lastName = null;
 
+    #[ORM\OneToMany(mappedBy: 'nftOwner', targetEntity: nft::class)]
+    private Collection $nftOwner;
+
     public function __construct()
     {
-        $this->transactions = new ArrayCollection();
         $this->lives = new Adresse();
+        $this->nftOwner = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -182,30 +184,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Nft>
-     */
-    public function getTransaction(): Collection
-    {
-        return $this->transactions;
-    }
-
-    public function addTransaction(Nft $transaction): static
-    {
-        if (!$this->transactions->contains($transaction)) {
-            $this->transactions->add($transaction);
-        }
-
-        return $this;
-    }
-
-    public function removeTransaction(Nft $transaction): static
-    {
-        $this->transactions->removeElement($transaction);
-
-        return $this;
-    }
-
     public function getLastName(): ?string
     {
         return $this->lastName;
@@ -234,4 +212,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     //   {
     //       return $this->gender; // Return a string representation of the User entity
     //   }
+
+    /**
+     * @return Collection<int, nft>
+     */
+    public function getNftOwner(): Collection
+    {
+        return $this->nftOwner;
+    }
+
+    public function addNftOwner(nft $nftOwner): static
+    {
+        if (!$this->nftOwner->contains($nftOwner)) {
+            $this->nftOwner->add($nftOwner);
+            $nftOwner->setNftOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNftOwner(nft $nftOwner): static
+    {
+        if ($this->nftOwner->removeElement($nftOwner)) {
+            // set the owning side to null (unless already changed)
+            if ($nftOwner->getNftOwner() === $this) {
+                $nftOwner->setNftOwner(null);
+            }
+        }
+
+        return $this;
+    }
 }
