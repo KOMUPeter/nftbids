@@ -1,0 +1,23 @@
+img {
+    background-color: blue;
+    padding: 5px;
+    border-radius: 50%;
+}
+nav {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+}
+nav li a {
+    text-decoration: none;
+    color: inherit;
+}
+nav li a:hover {
+    color: blue;
+}
