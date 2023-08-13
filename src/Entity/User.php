@@ -57,6 +57,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 60)]
     private ?string $lastName = null;
 
+    // #[ORM\OneToMany(mappedBy: 'nftOwner', targetEntity: nft::class)]
+    // private Collection $nftOwner;
+
+    #[Groups(["read"])] // Include this property only in the "read" serialization group
     #[ORM\OneToMany(mappedBy: 'nftOwner', targetEntity: nft::class)]
     private Collection $nftOwner;
 
