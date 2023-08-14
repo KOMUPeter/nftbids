@@ -27,7 +27,6 @@ class NftType extends AbstractType
             ->add('nftFlow', NftFlowType::class)
             ->add('categories', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'name',
                 'expanded' => true,
                 'multiple' => true,
                 'required' => true,

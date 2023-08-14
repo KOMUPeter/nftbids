@@ -1,0 +1,98 @@
+/* Your provided CSS styles */
+body, h1, h2, h3, p, label, input, select, option, button {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Styling for the page title */
+.page-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+/* Styling for the registration form */
+.registration-form {
+    background: linear-gradient(to bottom, #04040C, #007bff);
+    padding: 20px;
+    border: 1px solid #5a5454;
+    border-radius: 5px;
+    box-shadow: 0 5px 5px 5px rgba(53, 24, 24, 0.342);
+}
+
+/* Styling for form labels */
+.form-label {
+    display: block;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+/* Styling for form inputs */
+.form-input {
+    width: 100%;
+    padding: 3px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+    color: #333;
+}
+
+/* Styling for form buttons */
+.form-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+/* Styling for form button hover state */
+.form-button:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for the cities container */
+.cities {
+    padding: 3px;
+    margin-top: 10px;
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+}
+
+/* Styling for the list */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Styling for list items */
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin-bottom: 10px; */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Styling for city name */
+p.cityName {
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Styling for postal code */
+p.postalCode {
+    color: #9b7e7e;
+    margin: 0;
+}
+

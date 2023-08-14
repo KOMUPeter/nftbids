@@ -1,16 +1,15 @@
-<!-- <div *ngFor="let city of cities">
-    <h2>{{ city.cityName }}</h2>
-    <p>Postal Code: {{ city.postalCode }}</p>
-</div> -->
-
-<h2>Add a New City</h2>
-<form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
-    <label>City Name: <input formControlName="cityName"></label><br>
-    <label>Postal Code: <input formControlName="postalCode"></label><br>
-    <button type="submit">Add City</button>
+<h1 class="page-title">Add a New City</h1>
+<form class="registration-form" [formGroup]="cityForm" (ngSubmit)="onSubmit()">
+    <label class="form-label">City Name: <input class="form-input" formControlName="cityName"></label><br>
+    <label class="form-label">Postal Code: <input class="form-input" formControlName="postalCode"></label><br>
+    <button class="form-button" type="submit">Add City</button>
 </form>
 
-<div *ngFor="let city of cities">
-    <h2>{{ city.cityName }}</h2>
-    <p>Postal Code: {{ city.postalCode }}</p>
+<div *ngFor="let city of cities" class="cities">
+    <ul>
+        <li>
+            <p>City Name: {{ city.cityName }}</p>
+            <p>Postal Code: {{ city.postalCode }}</p>
+        </li>
+    </ul>
 </div>

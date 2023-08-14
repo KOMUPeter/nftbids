@@ -5,13 +5,14 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/user/{id}', name: 'app_user', requirements: ['id' => "\d+"])]
+    #[Route('/api/user/{id}', name: 'app_user', requirements: ['id' => "\d+"])]
     public function fetchUser(
         int $id,
         Request $request,
@@ -41,5 +42,14 @@ class UserController extends AbstractController
             'user' => $user,
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/api/users', name: 'app_users', methods: ['GET'])]
+    public function listUsers(UserRepository $userRepository): JsonResponse
+    {
+        $users = $userRepository->findAll();
+
+        // Return the list of users as JSON response
+        return $this->json($users);
     }
 }

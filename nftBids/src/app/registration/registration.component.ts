@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { UserService } from '../user.service';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { City } from '../city';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -45,6 +44,7 @@ export class RegistrationComponent implements OnInit {
       cityName: '',
       postalCode: ''
     });
+
   }
 
   ngOnInit(): void {
@@ -92,11 +92,15 @@ export class RegistrationComponent implements OnInit {
             console.log('Registration successful:', response);
             // You can add further logic here, such as redirecting to a success page.
         },
-        (error) => {
-            console.error('Registration failed:', error);
-            if (error.error && error.error.errors) {
-                console.error('Error details:', error.error.errors);
-            }
+
+        (error: HttpErrorResponse) => {
+          if (error.status >= 400 && error.status < 500) {
+            console.error('Client Error:', error.status, error.statusText);
+            // Handle client error, show user-friendly message, etc.
+          } else {
+            console.error('Server Error:', error.status, error.statusText);
+            // Handle other types of errors (5xx, network errors, etc.)
+          }
         }
     );
 }
