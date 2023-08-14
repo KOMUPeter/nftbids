@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs'; // to Import Observable
-import { Product } from './product.model';
+import { Observable } from 'rxjs'; // to Import Observable
 import { City } from './city';
 import { map } from 'rxjs/operators';
 
@@ -11,7 +10,7 @@ import { map } from 'rxjs/operators';
 export class ApiService {
     addCity(cityData: any): Observable<any> {
     return this.http.post(this.apiUrl, cityData);
-  }
+}
     private apiUrl = 'http://localhost:8000/api/cities'; 
 
     constructor(private http: HttpClient) {}

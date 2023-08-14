@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { UserService } from './user.service';
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { UserService } from './user.service';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
