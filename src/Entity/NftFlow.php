@@ -26,6 +26,9 @@ class NftFlow
     #[ORM\OneToMany(mappedBy: 'nftFlow', targetEntity: Nft::class)]
     private Collection $possess;
 
+    #[ORM\ManyToOne(inversedBy: 'nftFlows')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->possess = new ArrayCollection();
@@ -86,6 +89,18 @@ class NftFlow
                 $possess->setNftFlow(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

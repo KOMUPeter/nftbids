@@ -57,17 +57,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 60)]
     private ?string $lastName = null;
 
-    // #[ORM\OneToMany(mappedBy: 'nftOwner', targetEntity: nft::class)]
-    // private Collection $nftOwner;
-
-    #[Groups(["read"])] // Include this property only in the "read" serialization group
-    #[ORM\OneToMany(mappedBy: 'nftOwner', targetEntity: nft::class)]
-    private Collection $nftOwner;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: NftFlow::class)]
+    private Collection $nftFlows;
 
     public function __construct()
     {
         $this->lives = new Adresse();
-        $this->nftOwner = new ArrayCollection();
+        $this->nftFlows = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,27 +216,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, nft>
      */
-    public function getNftOwner(): Collection
+
+    /**
+     * @return Collection<int, NftFlow>
+     */
+    public function getNftFlows(): Collection
     {
-        return $this->nftOwner;
+        return $this->nftFlows;
     }
 
-    public function addNftOwner(nft $nftOwner): static
+    public function addNftFlow(NftFlow $nftFlow): static
     {
-        if (!$this->nftOwner->contains($nftOwner)) {
-            $this->nftOwner->add($nftOwner);
-            $nftOwner->setNftOwner($this);
+        if (!$this->nftFlows->contains($nftFlow)) {
+            $this->nftFlows->add($nftFlow);
+            $nftFlow->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeNftOwner(nft $nftOwner): static
+    public function removeNftFlow(NftFlow $nftFlow): static
     {
-        if ($this->nftOwner->removeElement($nftOwner)) {
+        if ($this->nftFlows->removeElement($nftFlow)) {
             // set the owning side to null (unless already changed)
-            if ($nftOwner->getNftOwner() === $this) {
-                $nftOwner->setNftOwner(null);
+            if ($nftFlow->getUser() === $this) {
+                $nftFlow->setUser(null);
             }
         }
 
