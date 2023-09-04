@@ -3,6 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
 use App\Entity\User;
 use App\Repository\NftRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,7 +14,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NftRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    operations: [
+        new Post(),
+        new Patch(),
+        new Get(),
+        new GetCollection()
+    ]
+)]
 class Nft
 {
     #[ORM\Id]
@@ -46,11 +57,9 @@ class Nft
     #[ORM\OneToMany(mappedBy: 'nftImage', targetEntity: Image::class, cascade: ['persist'])]
     private Collection $nftImage;
 
-   /**
- * @ORM\ManyToOne(targetEntity=User::class)
- * @ORM\JoinColumn(name="nft_owner_id", referencedColumnName="id")
- */
-private ?User $nft_owner = null;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: "nft_owner_id", referencedColumnName: "id")]
+    private ?User $nftOwner = null;
 
     public function __construct()
     {
@@ -216,12 +225,12 @@ private ?User $nft_owner = null;
 
     public function getNftOwner(): ?User
     {
-        return $this->nft_owner;
+        return $this->nftOwner;
     }
     
     public function setNftOwner(?User $nftOwner): self
     {
-        $this->nft_owner = $nftOwner;
+        $this->nftOwner = $nftOwner;
         return $this;
     }
 }

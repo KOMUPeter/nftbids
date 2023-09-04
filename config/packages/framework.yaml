@@ -17,6 +17,9 @@ framework:
     #fragments: true
     php_errors:
         log: true
+        
+    # imports:
+    #     - { resource: nelmio_cors.yaml }
 
 when@test:
     framework:

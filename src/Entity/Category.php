@@ -3,13 +3,24 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    operations: [
+        new Post(),
+        new Patch(),
+        new Get(),
+        new GetCollection()
+    ]
+)]
 class Category
 {
     #[ORM\Id]
@@ -100,6 +111,11 @@ class Category
     public function getHave(): Collection
     {
         return $this->have;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName(); //Le nom du getter du nom de ta catégorie
     }
 
     public function addHave(Nft $have): static

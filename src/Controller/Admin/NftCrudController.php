@@ -29,10 +29,8 @@ class NftCrudController extends AbstractCrudController
             IntegerField::new('quantity'),
             DateField::new('nftCreationDate')->hideOnForm(),
             BooleanField::new('isAvailable'),
-            CollectionField::new('categories'),
-            IntegerField::new('nftFlow')->setFormTypeOptions([
-                'choice_label' => 'ethValue',
-            ]),
+            AssociationField::new('categories', 'Catégorie(s)')
+                ->setFormTypeOptions(['by_reference' => false]),
         ];
     }
 }

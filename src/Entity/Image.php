@@ -3,6 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -11,7 +15,14 @@ use Symfony\Component\Validator\Constraints\DateTime;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    operations: [
+        new Post(),
+        new Patch(),
+        new Get(),
+        new GetCollection()
+    ]
+)]
 #[Vich\Uploadable]
 class Image
 {

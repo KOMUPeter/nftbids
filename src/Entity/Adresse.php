@@ -6,9 +6,21 @@ use App\Repository\AdresseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: AdresseRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    operations: [
+        new Post(),
+        new Patch(),
+        new Get(),
+        new GetCollection()
+    ]
+)]
 class Adresse
 {
     #[ORM\Id]
@@ -17,6 +29,7 @@ class Adresse
     private ?int $id = null;
 
     #[ORM\Column(length: 255)] 
+    // #[Groups(['write'])]
     private ?string $line1 = null;
 
     #[ORM\OneToOne(mappedBy: 'lives', cascade: ['persist', 'remove'])]
@@ -24,6 +37,7 @@ class Adresse
 
     #[ORM\ManyToOne(inversedBy: 'located')]
     #[ORM\JoinColumn(nullable: false)]
+    // #[Groups(['write'])]
     private ?City $city = null;
 
     // public function __construct()

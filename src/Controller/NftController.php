@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\Nft;
@@ -16,21 +15,20 @@ class NftController extends AbstractController
     public function index(Request $request, EntityManagerInterface $em): Response
     {
         $nft = new Nft();
-        $form = $this->createForm(
-            NftType::class,
-            $nft
-        );
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+        $nft->setNftOwner($user);
+
+        $form = $this->createForm(NftType::class, $nft);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $nftOwner = $form->get('nftOwner')->getData();
-            $nft->setNftName($nftOwner);
-
             $em->persist($nft);
             $em->flush();
 
-            return $this->redirectToRoute('app_user');
+            return $this->redirectToRoute('app_user', [
+                'id' => $user->getId(),
+            ]);
         }
         return $this->render('nft/index.html.twig', [
             'nftForm' => $form->createView(),
