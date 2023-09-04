@@ -3,10 +3,9 @@
     <ul>
         <li><a routerLink="/" routerLinkActive="active">Home</a></li>
         <li><a routerLink="/product-list" routerLinkActive="active">Cities</a></li>
-        <li><a routerLink="/registration" routerLinkActive="active">Sign up</a></li>
-        <li *ngIf="!authService.isAuthenticated()"><a routerLink="/login">Sign In</a></li>
-        <li *ngIf="authService.isAuthenticated()"><a routerLink="/logout">Sign out</a></li>
-        <!-- <li><a routerLink="/logout" routerLinkActive="active">Sign out</a></li>
-        <li><a routerLink="/login" routerLinkActive="active">Sign in</a></li> -->
+        <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
+        <li><a routerLink="/logout" routerLinkActive="active">Logout</a></li>
+        <!-- <li *ngIf="!authService.isAuthenticated()"><a routerLink="/login">Sign In</a></li>
+        <li *ngIf="authService.isAuthenticated()"><a routerLink="/logout">Sign out</a></li> -->
     </ul>
 </nav>

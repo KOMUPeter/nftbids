@@ -1,0 +1,23 @@
+<div class="form_container">
+    <form name="form" #formLoging="ngForm" (ngSubmit)="formLoging.form.valid && onSubmit()">
+        <div class="group">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" [(ngModel)]="form.username" #username="ngModel" required>
+        </div>
+        <div class="form_error" *ngIf="username.errors && formLoging.submitted">
+            Email is required!!
+        </div>
+        <div class="group">
+            <label for="password">password</label>
+            <input type="password" name="password" id="password" [(ngModel)]="form.password" #password="ngModel"
+                required minlength="4">
+        </div>
+        <div class="form_error" *ngIf="password.errors && formLoging.submitted">
+            <div *ngIf="password.errors['required']">password is required</div>
+            <div *ngIf="password.errors['minlength']">au moins 5 caractere</div>
+        </div>
+        <div class="group">
+            <button type="submit">login</button>
+        </div>
+    </form>
+</div>

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
@@ -13,11 +14,27 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ApiResource()]
+// #[ApiResource(
+//     denormalizationContext: [
+//         'groups' => ['write']
+//     ]
+// )]
+#[ApiResource(
+    operations: [
+        new Post(),
+        new Patch(),
+        new Get(),
+        new GetCollection()
+    ]
+)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, JWTUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,9 +42,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['write'])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(['write'])]
     private array $roles = [];
 
     /**
@@ -35,39 +54,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     protected ?string $password = null;
+    
+    #[Groups(['write'])]
     protected ?string $plainPassword = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['write'])]
     private ?string $firstName = null;
 
     // to chose between male and female
     #[ORM\Column(length: 50)]
+    #[Groups(['write'])]
     /**
      * @Assert\Choice(choices={"male", "female"})
      */
     private ?string $gender = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['write'])]
     private ?\DateTimeInterface $dateOfBirth = null;
 
     #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['write'])]
     private ?Adresse $lives = null;
 
     #[ORM\Column(length: 60)]
+    #[Groups(['write'])]
     private ?string $lastName = null;
 
-    // #[ORM\OneToMany(mappedBy: 'nftOwner', targetEntity: nft::class)]
-    // private Collection $nftOwner;
-
-    #[Groups(["read"])] // Include this property only in the "read" serialization group
-    #[ORM\OneToMany(mappedBy: 'nftOwner', targetEntity: nft::class)]
-    private Collection $nftOwner;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: NftFlow::class)]
+    private Collection $nftFlows;
 
     public function __construct()
     {
         $this->lives = new Adresse();
-        $this->nftOwner = new ArrayCollection();
+        $this->nftFlows = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,30 +242,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, nft>
      */
-    public function getNftOwner(): Collection
+
+    /**
+     * @return Collection<int, NftFlow>
+     */
+    public function getNftFlows(): Collection
     {
-        return $this->nftOwner;
+        return $this->nftFlows;
     }
 
-    public function addNftOwner(nft $nftOwner): static
+    public function addNftFlow(NftFlow $nftFlow): static
     {
-        if (!$this->nftOwner->contains($nftOwner)) {
-            $this->nftOwner->add($nftOwner);
-            $nftOwner->setNftOwner($this);
+        if (!$this->nftFlows->contains($nftFlow)) {
+            $this->nftFlows->add($nftFlow);
+            $nftFlow->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeNftOwner(nft $nftOwner): static
+    public function removeNftFlow(NftFlow $nftFlow): static
     {
-        if ($this->nftOwner->removeElement($nftOwner)) {
+        if ($this->nftFlows->removeElement($nftFlow)) {
             // set the owning side to null (unless already changed)
-            if ($nftOwner->getNftOwner() === $this) {
-                $nftOwner->setNftOwner(null);
+            if ($nftFlow->getUser() === $this) {
+                $nftFlow->setUser(null);
             }
         }
 
         return $this;
+    }
+
+    public static function createFromPayload($username, array $payload): self
+    {
+        return (new User());
     }
 }
