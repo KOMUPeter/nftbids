@@ -17,8 +17,3 @@ li a {
 li:hover {
     color: blue;
 }
-img {
-    background-color: blue;
-    padding: 5px;
-    border-radius: 50%;
-}

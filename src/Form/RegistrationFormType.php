@@ -59,8 +59,8 @@ class RegistrationFormType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'choices' => [
-                    'Seller' => 'ROLE_SELLER',
-                    'Buyer' => 'ROLE_BUYER',
+                    'User' => 'ROLE_USER',
+                    // 'Buyer' => 'ROLE_BUYER',
                 ],
             ])
             ->add('dateOfBirth', DateType::class,

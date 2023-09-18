@@ -1,8 +1,9 @@
-<div class="form_container">
+<div class="form_container mt-5">
+    <h2 class="text-center">Sign in</h2>
     <form name="form" #formLoging="ngForm" (ngSubmit)="formLoging.form.valid && onSubmit()">
         <div class="group">
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" [(ngModel)]="form.username" #username="ngModel" required>
+            <input type="text" name="username" id="email" [(ngModel)]="form.username" #username="ngModel" required>
         </div>
         <div class="form_error" *ngIf="username.errors && formLoging.submitted">
             Email is required!!

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { LogoutComponent } from './auth/logout/logout.component';
-import { LoginComponent } from './auth/login/login.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './authentification/login/login.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'logout', component: LogoutComponent },
-  // ADD MORE PAGES
+  { path: 'login', component: LoginComponent }, // add login page here for redirection after logout
+  { path: 'authentication', loadChildren: () => import('./authentification/authentification.module').then(m => m.AuthentificationModule) },
+  // Other routes
   { path: '**', component: NotFoundComponent },
 ];
 

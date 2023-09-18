@@ -1,11 +1,14 @@
 <nav class="container">
-    <img src="" alt="logo">
+    <a routerLink="/" routerLinkActive="active"><img src="assets/images/logowhite.png" alt="logo" ></a>
     <ul>
         <li><a routerLink="/" routerLinkActive="active">Home</a></li>
         <li><a routerLink="/product-list" routerLinkActive="active">Cities</a></li>
-        <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
-        <li><a routerLink="/logout" routerLinkActive="active">Logout</a></li>
-        <!-- <li *ngIf="!authService.isAuthenticated()"><a routerLink="/login">Sign In</a></li>
-        <li *ngIf="authService.isAuthenticated()"><a routerLink="/logout">Sign out</a></li> -->
+        <li *ngIf="isLogged">
+            <a routerLink="/authentication/logout">Sign Out</a>
+        </li>
+        <li *ngIf="!isLogged">
+            <a routerLink="/authentication/login">Sign In</a> 
+            <a routerLink="/authentication/inscription">Inscription</a>
+        </li>
     </ul>
 </nav>
