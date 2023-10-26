@@ -11,6 +11,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { TokenInterceptorProvider } from './secureHelpers/token-interceptor.service';
+import { RegistrationComponent } from './pages/registration/registration.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { TokenInterceptorProvider } from './secureHelpers/token-interceptor.serv
     FooterComponent,
     HomeComponent,
     NotFoundComponent,
+    RegistrationComponent,
     ],
   imports: [
     BrowserModule,

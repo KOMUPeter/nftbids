@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
@@ -14,12 +15,22 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NftRepository::class)]
+// #[ApiResource(
+//     operations: [
+//         new Post(),
+//         new Patch(),
+//         new Get(),
+//         new GetCollection()
+//     ]
+// )]
 #[ApiResource(
+    normalizationContext: ['groups' => ['read']],
+    denormalizationContext: ['groups' => ['write']],
     operations: [
         new Post(),
         new Patch(),
         new Get(),
-        new GetCollection()
+        new GetCollection(normalizationContext: ['groups' => ['read:collection', 'read:Nft']])
     ]
 )]
 class Nft
@@ -27,38 +38,49 @@ class Nft
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["read", "read:collection"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 60)]
+    #[Groups(["read", "read:collection"])]
     private ?string $nftName = null;
 
     #[ORM\Column]
+    #[Groups(["read", "read:collection"])]
     private ?\DateTimeImmutable $nftCreationDate = null;
 
     #[ORM\Column]
+    #[Groups(["read", "read:collection"])]
     private ?int $initialPrice = null;
 
     #[ORM\Column]
+    #[Groups(["read", "read:collection"])]
     private ?bool $isAvailable = null;
 
     #[ORM\Column]
     private ?int $quantity = null;
 
     #[ORM\Column]
+    #[Groups(["read", "read:collection"])]
     private ?int $actualPrice = null;
 
     #[ORM\ManyToOne(inversedBy: 'possess', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["read", "read:collection"])]
     private ?NftFlow $nftFlow = null;
+    #[Groups(["read", "read:collection"])]
 
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'have')]
+    // #[Groups(["read", "read:collection"])]
     private Collection $categories;
 
     #[ORM\OneToMany(mappedBy: 'nftImage', targetEntity: Image::class, cascade: ['persist'])]
+    #[Groups(["read", "read:collection"])]
     private Collection $nftImage;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: "nft_owner_id", referencedColumnName: "id")]
+    #[Groups(["read", "read:collection"])]
     private ?User $nftOwner = null;
 
     public function __construct()
@@ -228,6 +250,7 @@ class Nft
         return $this->nftOwner;
     }
     
+
     public function setNftOwner(?User $nftOwner): self
     {
         $this->nftOwner = $nftOwner;

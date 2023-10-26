@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Get;
@@ -15,34 +16,47 @@ use Symfony\Component\Validator\Constraints\DateTime;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
+// #[ApiResource(
+//     operations: [
+//         new Post(),
+//         new Patch(),
+//         new Get(),
+//         new GetCollection()
+//     ]
+// )]
+#[Vich\Uploadable]
 #[ApiResource(
     operations: [
-        new Post(),
-        new Patch(),
+        new GetCollection(),
         new Get(),
-        new GetCollection()
     ]
 )]
-#[Vich\Uploadable]
+
 class Image
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["read", "read:Nft"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["read", "read:Nft"])]
     private ?string $path = null;
+    
 
     #[ORM\ManyToOne(inversedBy: 'nftImage')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["read", "read:Nft"])]
     private ?Nft $nftImage = null;
+    
 
     // NOTE: This is not a mapped field of entity matadata, just a simple property
     #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'path')]
     protected ?File $file;
 
     #[ORM\Column]
+    #[Groups(["read", "read:Nft"])]
     private ?\DateTimeImmutable $updatedAt = null;
 
     public function __construct()

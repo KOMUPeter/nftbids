@@ -2,6 +2,7 @@
     <a routerLink="/" routerLinkActive="active"><img src="assets/images/logowhite.png" alt="logo" ></a>
     <ul>
         <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+        <li><a routerLink="/pages/registration" routerLinkActive="active">Inscription</a></li>
         <li><a routerLink="/product-list" routerLinkActive="active">Cities</a></li>
         <li *ngIf="isLogged">
             <a routerLink="/authentication/logout">Sign Out</a>
