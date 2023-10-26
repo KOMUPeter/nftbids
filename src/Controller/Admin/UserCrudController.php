@@ -25,8 +25,7 @@ class UserCrudController extends AbstractCrudController
             ChoiceField::new('roles') // create choice list fields for the roles
                 ->setChoices([
                     'ROLE_ADMIN' => 'ROLE_ADMIN',
-                    'ROLE_BUYER' => 'ROLE_BUYER',
-                    'ROLE_SELLER' => 'ROLE_SELLER',
+                    'ROLE_USER' => 'ROLE_USER',
                 ])
                 ->setFormTypeOptions([ // define wheather the fields are checkboxs or radio
                     'multiple' => true,

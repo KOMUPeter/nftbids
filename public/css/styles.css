@@ -1,0 +1,14 @@
+body {
+    background: linear-gradient(to top left, #04040C, #002a53);
+    color: #F2F2F2;
+    margin: 0;
+}
+nav img, footer img { 
+    height: 50px;
+}
+.homeTitle {
+    margin-top: 100px;
+}
+.imgs {
+    margin-right: 100px;
+}

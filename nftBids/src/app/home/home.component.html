@@ -1,1 +1,30 @@
-<p>home works!</p>
+<div class="d-flex gap-4 justify-content-center">
+    <div id="myCarousel" class="carousel slide" data-bs-interval="3000">
+        <div class="d-flex gap-4 justify-content-center">
+            <div id="myCarousel" class="carousel slide">
+                <div class="carousel-inner">
+                    <article class="card-body" *ngFor="let nft of nfts; let i = index" class="card carousel-item" [ngClass]="{'active': i === 0}">
+                        <h2>{{ nft.nftName }}</h2>
+                        <div *ngFor="let image of nft.nftImage">
+                            <img src="http://localhost:8000/images/{{ image.path }}" class="card-img-top carousel-image" alt="Placeholder Image">
+                        </div>
+                        <p>Created on {{ nft.nftCreationDate | date }}</p>
+                        <p>Initial Price: {{ nft.initialPrice }}</p>
+                        <p>Formatted Date: {{ nft.nftCreationDate | date: 'yyyy-MM-dd HH:mm:ss' }}</p>
+                        <p [style.color]="nft.isAvailable ? 'green' : 'red'">
+                            {{ nft.isAvailable ? 'Available' : 'Not Available' }}
+                        </p>
+                    </article>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
