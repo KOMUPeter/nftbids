@@ -15,14 +15,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NftRepository::class)]
-// #[ApiResource(
-//     operations: [
-//         new Post(),
-//         new Patch(),
-//         new Get(),
-//         new GetCollection()
-//     ]
-// )]
 #[ApiResource(
     normalizationContext: ['groups' => ['read']],
     denormalizationContext: ['groups' => ['write']],

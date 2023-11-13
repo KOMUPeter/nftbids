@@ -9,7 +9,7 @@ security:
       entity:
         class: App\Entity\User
         property: email
-    jwt:
+    jwt:   
       lexik_jwt:
         class: App\Entity\User
 
@@ -19,9 +19,9 @@ security:
       security: false
     api_login:
       pattern: ^/api/login
-      stateless: true
+      stateless: true # When "stateless" is set to true, it means that the firewall should operate without maintaining any session state. 
       provider: app_user_provider
-      json_login:
+      json_login:  # ensure users are authenticated correctly
         check_path: api_login
         success_handler: lexik_jwt_authentication.handler.authentication_success
         failure_handler: lexik_jwt_authentication.handler.authentication_failure
@@ -30,7 +30,7 @@ security:
       stateless: true
       provider: jwt
       jwt: ~
-
+              
     main:
       lazy: true
       provider: app_user_provider
