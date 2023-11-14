@@ -1,15 +1,14 @@
 <nav class="container">
-    <a routerLink="/" routerLinkActive="active"><img src="assets/images/logowhite.png" alt="logo" ></a>
+    <a routerLink="/" routerLinkActive="active"><img class="logoimage" src="assets/images/logo.png" alt="logo" ></a>
     <ul>
         <li><a routerLink="/" routerLinkActive="active">Home</a></li>
-        <li><a routerLink="/pages/registration" routerLinkActive="active">Inscription</a></li>
         <li><a routerLink="/product-list" routerLinkActive="active">Cities</a></li>
-        <li *ngIf="isLogged">
-            <a routerLink="/authentication/logout">Sign Out</a>
-        </li>
-        <li *ngIf="!isLogged">
+        <li><a routerLink="/pages/registration" routerLinkActive="active">Inscription</a></li>
+        <li *ngIf="!isLoggedIn">
             <a routerLink="/authentication/login">Sign In</a> 
-            <a routerLink="/authentication/inscription">Inscription</a>
+        </li>
+        <li *ngIf="isLoggedIn">
+            <a routerLink="/authentication/logout">Sign Out</a>
         </li>
     </ul>
 </nav>

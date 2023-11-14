@@ -44,7 +44,7 @@ class NftRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('n')
             ->select(['n'])
             ->orderBy('n.nftCreationDate', 'DESC')
-            ->setMaxResults(5)
+            ->setMaxResults(4)
             ->getQuery()
             ->getResult()
         ;

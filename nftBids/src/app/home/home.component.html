@@ -1,4 +1,21 @@
-<div class="d-flex gap-4 justify-content-center">
+<section class="m-0">
+    <div class="list gap-4">
+        <article class="text-center" *ngFor="let nft of nfts.slice(-4); let i = index">
+            <h2 class="m-4">{{ nft.nftName || 'N/A' }}</h2>
+            <div *ngFor="let image of nft.nftImage" class="image-container">
+                <img class="list-img" src="http://localhost:8000/images/{{ image.path }}" alt="{{ nft.nftName || 'Placeholder Image' }}">
+            </div>
+            <p class="m-4">Created on {{ nft.nftCreationDate | date: 'yyyy-MM-dd HH:mm:ss' || 'N/A' }}</p>
+            <p>Initial Price: {{ nft.initialPrice || 'N/A' }} ETH</p>
+            <p [style.color]="nft.isAvailable ? 'green' : 'red'">
+                {{ nft.isAvailable ? 'Available' : 'Not Available' }}
+            </p>
+        </article>
+    </div>
+</section>
+
+
+<!-- <div class="d-flex gap-4 justify-content-center">
     <div id="myCarousel" class="carousel slide" data-bs-interval="3000">
         <div class="d-flex gap-4 justify-content-center">
             <div id="myCarousel" class="carousel slide">
@@ -27,4 +44,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
