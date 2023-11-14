@@ -6,3 +6,29 @@
 .carousel {
     height: 400px; 
 }
+
+.list {
+    /* height: 60vh; */
+    display: flex;
+    justify-content: space-between;
+}
+/* .list-img {
+    background-image: url("http://localhost:8000/images/{{ image.path }}");
+
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+} */
+
+.image-container {
+    width: 100%;
+    height: 200px; 
+    overflow: hidden;
+}
+
+.list-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+

@@ -1,62 +1,120 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nft Bids
-{% endblock %}
+{% block title %}Nft Bids {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="d-flex gap-5 justify-content-center align-items-center">
+            {% for nft in nfts %}
+                <div class="card mt-5">
+                    <h2 class="m-5">NFT: {{ nft.nftName }}</h2>
+                    {# <p>ID: {{ nft.id }} </p> #}
+                    <div>
+                            <ul>
+                                {% for image in nft.nftImage %}
+                                    <li>
+										<div class="image-container col-md-4">
+											<img class="imgs" src="{{ vich_uploader_asset(image) }}" class="img-fluid rounded-start" alt="nft photo">
+										</div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+                    {# <p>Creation Date:
+                        {{ nft.nftCreationDate.format('Y-m-d H:i:s') }}</p>
+                    <p>Initial Price:
+                        {{ nft.initialPrice }}</p> #}
+                    <p>Is Available:
+                        {{ nft.isAvailable ? 'Yes' : 'No' }}</p>
+                    <p>Quantity:
+                        {{ nft.quantity }}</p>
+                    <p>Actual Price:
+                        {{ nft.actualPrice }}</p>
+                    {# <p>NFT Flow ID:
+                        {{ nft.nftFlow.id }}</p> #}
+                    {# <h3>Categories:</h3> #}
+
+                    {# {% if nft.categories|length > 0 %}
+                        <ul>
+                            {% for category in nft.categories %}
+                                <li>{{ category.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No categories available for this NFT.</p>
+                    {% endif %} #}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div><button>Get Started</button></div>
+</div>
+
+{% endblock body %}
+
+
+
+{# 
+
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Nft Bids {% endblock %}
 
 {% block body %}
 	<div class="container">
-		<h1 class="homeTitle">Home Page</h1>
+		<div class="d-flex justify-content-center align-items-center">
+			{% for nft in nfts %}
+				<div class="homeTitle">
+						<h2>NFT: {{ nft.nftName }}</h2>
+						<p>ID: {{ nft.id }} </p>
+						<div class="imgs">
+							<h3>NFT Images:</h3>
+							{% if nft.nftImage|length > 0 %}
+								<ul class="imgs">
+									{% for image in nft.nftImage %}
+										<li>
+											<div class="col-md-4">
+											<img src="{{ vich_uploader_asset(image) }}" class="img-fluid rounded-start" alt="nft photo">
+											</div>
+										</li>
+									{% endfor %}
+								</ul>
+							{% else %}
+								<p class='text-danger'>No image for this Nft</p>
+							{% endif %}
+						</div>
+						<p>Creation Date:
+							{{ nft.nftCreationDate.format('Y-m-d H:i:s') }}</p>
+						<p>Initial Price:
+							{{ nft.initialPrice }}</p>
+						<p>Is Available:
+							{{ nft.isAvailable ? 'Yes' : 'No' }}</p>
+						<p>Quantity:
+							{{ nft.quantity }}</p>
+						<p>Actual Price:
+							{{ nft.actualPrice }}</p>
+						<p>NFT Flow ID:
+							{{ nft.nftFlow.id }}</p>
+						<h3>Categories:</h3>
 
-		{% for nft in nfts %}
-			<div class="homeTitle">
-				<h2>NFT:
-					{{ nft.nftName }}</h2>
-				<p>ID:
-					{{ nft.id }}</p>
-				<p>Creation Date:
-					{{ nft.nftCreationDate.format('Y-m-d H:i:s') }}</p>
-				<p>Initial Price:
-					{{ nft.initialPrice }}</p>
-				<p>Is Available:
-					{{ nft.isAvailable ? 'Yes' : 'No' }}</p>
-				<p>Quantity:
-					{{ nft.quantity }}</p>
-				<p>Actual Price:
-					{{ nft.actualPrice }}</p>
-				<p>NFT Flow ID:
-					{{ nft.nftFlow.id }}</p>
-				<h3>Categories:</h3>
-			
-			{% if nft.categories|length > 0 %}
-				<ul>
-					{% for category in nft.categories %}
-						<li>{{ category.name }}</li>
-
-					{% endfor %}
-				</ul>
-			{% else %}
-				<p>No categories available for this NFT.</p>
-			{% endif %}
-            </div>
-			<div class="imgs">
-				<h3>NFT Images:</h3>
-				{% if nft.nftImage|length > 0 %}
-					<ul class="imgs">
-						{% for image in nft.nftImage %}
-							<li>
-								<div class="col-md-4">
-									<img src="{{vich_uploader_asset(image)}}" class="img-fluid rounded-start" alt="nft photo">
-								</div>
-							</li>
-						{% endfor %}
-					</ul>
-				{% else %}
-					<p class='text-danger'>No image for this Nft</p>
-				{% endif %}
-			</div>
-		{% endfor %}
+                    {% if nft.categories|length > 0 %}
+                        <ul>
+                            {% for category in nft.categories|slice(-4) %}
+                                <li>{{ category.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No categories available for this NFT.</p>
+                    {% endif %}
+        		</div>
+				{% endfor %}
+        	</div>
         </div>
-		<button>Get Started</button>
+		<div><button>Get Started</button></div>
+	</div>
 	
 {% endblock body %}
 
+ #}

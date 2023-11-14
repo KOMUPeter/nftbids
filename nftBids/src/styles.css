@@ -3,6 +3,8 @@ body {
         color: #F2F2F2;
         margin: 0;
 }
-nav img, footer img { 
-        height: 50px;
+.logoimage {
+        filter: grayscale(50%);
+        filter: brightness(0) invert(1); 
+        height: 40px;   
 }

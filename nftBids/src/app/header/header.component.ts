@@ -7,5 +7,12 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(public isLogged: AuthService) {}
+
+   // Use the getter from AuthService to check authentication status
+  get isLoggedIn(): boolean {
+    return this.authService.checkToken();
+  }
+
+  constructor(private authService: AuthService) {}
 }
+
